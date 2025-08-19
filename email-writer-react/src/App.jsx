@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 import { useState } from 'react'
 import { Box, Container, TextField, Typography, CssBaseline, FormControl, InputLabel, Select, MenuItem, autocompleteClasses, Button, CircularProgress } from '@mui/material'
 import axios from 'axios'
@@ -9,6 +10,8 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+
+
   const handleSubmit = async () =>{
 
     setLoading(true)
@@ -18,6 +21,7 @@ function App() {
       const resposne = await axios.post("http://localhost:8080/api/email/generate",{
         emailContent,
         tone
+    
       });
 
       setGeneratedReply(typeof resposne.data==='string'?resposne.data:JSON.stringify(resposne.data))
