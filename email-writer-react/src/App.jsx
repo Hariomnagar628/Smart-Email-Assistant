@@ -1,7 +1,16 @@
-const API_URL = import.meta.env.VITE_API_URL;
+
 import { useState } from 'react'
 import { Box, Container, TextField, Typography, CssBaseline, FormControl, InputLabel, Select, MenuItem, autocompleteClasses, Button, CircularProgress } from '@mui/material'
 import axios from 'axios'
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const response = await axios.post(`${API_URL}/api/email/generate`, {
+  emailContent,
+  tone
+});
+
+
 
 function App() {
   const [emailContent, setEmailContent] = useState('')
