@@ -175,12 +175,37 @@ function App() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
-        Email Reply Generator
+    <Container
+      maxWidth="md"
+      sx={{
+        py: 6,
+        animation: 'fadeIn 0.8s ease-in-out',
+      }}
+    >
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        align="center"
+        sx={{
+          fontWeight: 'bold',
+          color: purple[700],
+          mb: 4,
+        }}
+      >
+        ✨ Email Reply Generator
       </Typography>
 
-      <Box sx={{ mx: 3 }}>
+      {/* Card wrapper */}
+      <Box
+        sx={{
+          p: 4,
+          borderRadius: 4,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+          bgcolor: 'white',
+          mb: 4,
+        }}
+      >
         <TextField
           fullWidth
           multiline
@@ -189,10 +214,10 @@ function App() {
           label="Original Email Content"
           value={emailContent}
           onChange={(e) => setEmailContent(e.target.value)}
-          sx={{ mb: 2 }}
+          sx={{ mb: 3 }}
         />
 
-        <FormControl fullWidth sx={{ mb: 2 }}>
+        <FormControl fullWidth sx={{ mb: 3 }}>
           <InputLabel>Tone (Optional)</InputLabel>
           <Select
             value={tone}
@@ -211,21 +236,44 @@ function App() {
           onClick={handleSubmit}
           disabled={!emailContent || loading}
           fullWidth
+          sx={{
+            py: 1.5,
+            fontSize: '1rem',
+            borderRadius: 3,
+            transition: '0.3s',
+            '&:hover': { transform: 'scale(1.03)' },
+          }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Generate Reply'}
+          {loading ? <CircularProgress size={24} /> : '🚀 Generate Reply'}
         </Button>
       </Box>
 
       {error && (
-        <Typography color="error" sx={{ mb: 2 }}>
+        <Typography
+          color="error"
+          sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}
+        >
           {error}
         </Typography>
       )}
 
       {generatedReply && (
-        <Box sx={{ mt: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Generated Reply:
+        <Box
+          sx={{
+            mt: 4,
+            p: 3,
+            borderRadius: 3,
+            bgcolor: purple[50],
+            boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.05)',
+            animation: 'slideUp 0.6s ease',
+          }}
+        >
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ color: purple[800], fontWeight: 'bold' }}
+          >
+            📩 Generated Reply
           </Typography>
           <TextField
             fullWidth
@@ -234,17 +282,39 @@ function App() {
             variant="outlined"
             value={generatedReply}
             inputProps={{ readOnly: true }}
+            sx={{
+              background: 'white',
+              borderRadius: 2,
+            }}
           />
 
           <Button
             variant="outlined"
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 2,
+              borderRadius: 3,
+              '&:hover': { background: purple[100] },
+            }}
             onClick={() => navigator.clipboard.writeText(generatedReply)}
           >
-            Copy to Clipboard
+            📋 Copy to Clipboard
           </Button>
         </Box>
       )}
+
+      {/* Animations */}
+      <style>
+        {`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+          }
+        `}
+      </style>
     </Container>
   );
 }
